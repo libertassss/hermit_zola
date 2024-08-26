@@ -51,6 +51,10 @@
 		  {% endfor %}
 		</nav>
 		{% endblock main %}
+		
+	  </div>
+	  <div class="giscus">
+		<!-- <iframe class="giscus-frame" title="Comments" scrolling="no" allow="clipboard-write" src="https://giscus.app/zh-CN/widget?origin=http%3A%2F%2F127.0.0.1%3A1025%2Fposts%2Fsad-11%2F&amp;session=6e053570e67826e3aa345b4ctTt8Jdg9eQ6jKTd69Fvtl%2FbL%2Fh4LAgy0UDFyFl8rVH%2BgQFiYjEpMqUuL8WSrZG94Uc5%2BOge0ud%2FW%2Bwx1X2154vBYKBidzvM0H18vnDzTbDT6kDTZCChVobgYSdM%3D&amp;theme=preferred_color_scheme&amp;reactionsEnabled=1&amp;emitMetadata=0&amp;inputPosition=top&amp;repo=libertassss%2Fmy-blog&amp;repoId=R_kgDOMmRX5w&amp;category=Announcements&amp;categoryId=DIC_kwDOMmRX584Ch7mb&amp;strict=0&amp;description=&amp;backLink=http%3A%2F%2F127.0.0.1%3A1025%2Fposts%2Fsad-11%2F&amp;term=posts%2Fsad-11%2F" loading="lazy" style="height: 372px;"></iframe> -->
 	  </div>
 	  
 	  {% block footer %}
@@ -67,21 +71,22 @@
 	  {% endblock footer %}
 	</div>
 	<script src="https://giscus.app/client.js"
-        data-repo="libertassss/my-blog"
-        data-repo-id="R_kgDOMmRX5w"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOMmRX584Ch7mb"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-</script>
+				data-repo="libertassss/my-blog"
+				data-repo-id="R_kgDOMmRX5w"
+				data-category="Announcements"
+				data-category-id="DIC_kwDOMmRX584Ch7mb"
+				data-mapping="pathname"
+				data-strict="0"
+				data-reactions-enabled="1"
+				data-emit-metadata="0"
+				data-input-position="top"
+				data-theme="preferred_color_scheme"
+				data-lang="zh-CN"
+				data-loading="lazy"
+				crossorigin="anonymous"
+				async>
+		</script>
+
 	<script src="{{get_url(path="js/main.js")}}"></script>
 
 	<!-- Math rendering -->
