@@ -137,6 +137,11 @@ table {
   width: 93%;
 }
 
+.giscus{
+  max-width: 720px;
+  margin: 0 auto;
+  width: 93%;
+}
 .thin {
   max-width: 720px;
   margin: auto;
@@ -732,6 +737,10 @@ hr.post-end {
   .section-inner {
     max-width: 1600px;
   }
+  .giscus{
+    max-width: 1600px;
+    margin: 0 auto;
+  }
 
   .thin {
     max-width: 960px;
@@ -793,7 +802,7 @@ hr.post-end {
 
 @media (max-width: 520px) {
   .content figure.left,
-  .content figure.right {
+  .content figure.right .giscus {
     float: unset;
     max-width: 100%;
     margin: 0;
@@ -826,3 +835,5 @@ hr.post-end {
   min-width: 55px;
   text-align: center;
 }
+
+
