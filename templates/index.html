@@ -26,8 +26,8 @@
   <title>{{config.title}}</title>
   {% endif %}
 
-  {% if config.generate_feed %}
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ get_url(path=config.feed_filename, trailing_slash=false) }}">
+  {% if config.generate_feeds %}
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ get_url(path=config.feed_filenames[0], trailing_slash=false) }}">
   {% endif %}
 
   <body id="page">
@@ -58,9 +58,13 @@
 		<p>&copy; {{ now() | date(format="%Y")}}
       <a href="{{config.base_url}}">{{config.extra.author.name}}</a>
       {% if config.generate_feed %}
-		  &#183; <a href="{{ get_url(path=config.feed_filename, trailing_slash=false) }}" target="_blank" title="rss">
+		  &#183; <a href="{{ get_url(path=config.feed_filenames[0], trailing_slash=false) }}" target="_blank" title="rss">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
 		  </a>
+		  &#183; <button id="copy-rss-btn" title="复制RSS订阅地址" style="background: none; border: none; cursor: pointer; padding: 0; margin: 0; vertical-align: middle;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+	  复制RSS订阅地址
+	</button>
       {% endif %}
 		</p>
 	  </div>
@@ -106,6 +110,63 @@
 
     {% block js_footer %}
     {% endblock js_footer %}
+
+    <!-- RSS复制功能 -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const copyBtn = document.getElementById('copy-rss-btn');
+        if (copyBtn) {
+          copyBtn.addEventListener('click', function() {
+            const rssUrl = '{{ get_url(path=config.feed_filenames[0], trailing_slash=false) }}';
+            
+            // 使用现代浏览器的Clipboard API
+            if (navigator.clipboard && window.isSecureContext) {
+              navigator.clipboard.writeText(rssUrl).then(function() {
+                showCopySuccess();
+              }).catch(function(err) {
+                console.error('复制失败:', err);
+                fallbackCopy(rssUrl);
+              });
+            } else {
+              // 降级方案
+              fallbackCopy(rssUrl);
+            }
+          });
+        }
+        
+        function fallbackCopy(text) {
+          const textArea = document.createElement('textarea');
+          textArea.value = text;
+          textArea.style.position = 'fixed';
+          textArea.style.left = '-999999px';
+          textArea.style.top = '-999999px';
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          
+          try {
+            document.execCommand('copy');
+            showCopySuccess();
+          } catch (err) {
+            console.error('复制失败:', err);
+            alert('复制失败，请手动复制: ' + text);
+          }
+          
+          document.body.removeChild(textArea);
+        }
+        
+        function showCopySuccess() {
+          const originalTitle = copyBtn.getAttribute('title');
+          copyBtn.setAttribute('title', '已复制到剪贴板！');
+          copyBtn.style.color = '#4CAF50';
+          
+          setTimeout(function() {
+            copyBtn.setAttribute('title', originalTitle);
+            copyBtn.style.color = '';
+          }, 2000);
+        }
+      });
+    </script>
 
 	{% if config.extra.google_analytics.enable %}
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
